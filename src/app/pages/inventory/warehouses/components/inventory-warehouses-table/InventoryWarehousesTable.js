@@ -18,13 +18,18 @@ const ActionCol = ({ onDelete, onEdit, isShow }) =>
   isShow && (
     <div style={{ textAlign: 'center' }}>
       <Tooltip title="Delete">
-        <Button size="small" onClick={onDelete}>
-          <DeleteIcon />
-        </Button>
-
-        <Button size="small" onClick={onEdit}>
-          <EditIcon />
-        </Button>
+        <Button
+          size="small"
+          onClick={onDelete}
+          type="danger"
+          icon={<DeleteIcon />}
+        />
+        <Button
+          size="small"
+          onClick={onEdit}
+          type="primary"
+          icon={<EditIcon />}
+        />
       </Tooltip>
     </div>
   );
@@ -75,7 +80,7 @@ function InventoryWarehousesTable({ hideActionCol }) {
     {
       title: 'Warehouse',
       dataIndex: 'name',
-      width: '20%',
+      width: '30%',
       sorter: true,
     },
     {
