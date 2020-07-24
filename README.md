@@ -15,6 +15,7 @@ Simple ERP using for small company like Retail, School, ...
 
  - [React](https://reactjs.org/)
  - [Antd](https://ant.design/)
+ - [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate)
 
 ## Quick start
 

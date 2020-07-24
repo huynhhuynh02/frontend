@@ -17,7 +17,7 @@ import axios from 'axios';
 import { ConnectedRouter } from 'connected-react-router';
 import FontFaceObserver from 'fontfaceobserver';
 import history from '_core/utils/history';
-import 'sanitize.css/sanitize.css';
+// import 'sanitize.css/sanitize.css';
 import 'antd/dist/antd.css';
 
 // Import root app
