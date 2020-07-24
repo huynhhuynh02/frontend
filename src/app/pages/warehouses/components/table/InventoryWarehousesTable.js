@@ -6,12 +6,12 @@ import Tooltip from 'antd/es/tooltip';
 import Button from 'antd/es/button';
 import DeleteIcon from '@ant-design/icons/DeleteOutlined';
 import EditIcon from '@ant-design/icons/EditOutlined';
-import { useInventoryWarehousesUIContext } from 'app/pages/inventory/warehouses/InventoryWarehoursesUIContext';
+import { useInventoryWarehousesUIContext } from 'app/pages/warehouses/InventoryWarehoursesUIContext';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   actions,
   makeSelectInventoryWarehouseList,
-} from 'app/pages/inventory/warehouses/redux/inventory-warehouses.duck';
+} from 'app/pages/warehouses/redux/inventory-warehouses.duck';
 
 // TODO: FormattedMessage transalation, PropsTypes eslint
 const ActionCol = ({ onDelete, onEdit, isShow }) =>

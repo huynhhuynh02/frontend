@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import InventoryWarehousePage from 'app/pages/inventory/warehouses';
+import InventoryWarehousePage from 'app/pages/warehouses';
 
 function Inventory() {
   console.log('Inventory');

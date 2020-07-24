@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import InventoryWarehousesEdit from 'app/pages/inventory/warehouses/components/inventory-add-or-edit/InventoryWarehousesEdit';
-import InventoryWarehouseCard from 'app/pages/inventory/warehouses/InventoryWarehousesCard';
-import { InventoryWarehousesUIProvider } from 'app/pages/inventory/warehouses/InventoryWarehoursesUIContext';
+import InventoryWarehousesEdit from 'app/pages/warehouses/components/form/InventoryWarehousesEdit';
+import InventoryWarehouseCard from 'app/pages/warehouses/InventoryWarehousesCard';
+import { InventoryWarehousesUIProvider } from 'app/pages/warehouses/InventoryWarehoursesUIContext';
 import { pure } from 'recompose';
 
 function InventoryWarehousesPage({ history }) {

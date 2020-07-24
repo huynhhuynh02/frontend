@@ -10,9 +10,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
 import produce from 'immer';
-import * as crud from 'app/pages/inventory/warehouses/redux/inventory-warehouses.crud';
+import * as crud from 'app/pages/warehouses/redux/inventory-warehouses.crud';
 import { showNotification } from 'app/containers/Notification/notification.duck';
-import { MODULE_STATE_NAME } from '../constants';
+import { MODULE_STATE_NAME } from 'app/pages/warehouses/constants';
 
 const buildAsyncActionTypes = actionName => ({
   start: `${MODULE_STATE_NAME}/${actionName}/start`,
