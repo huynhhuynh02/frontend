@@ -1,6 +1,21 @@
-# Yoctor ERP
+# Yocto ERP
+
+Simple ERP using for small company like Retail, School, ...
 
 ## Features
+
+ - Warehouse Management.
+ - Product Management.
+ - Inventory Management.
+ - Purchase Order, Sale Order management.
+ - Fund (cost) management.
+ - Access Control List.
+
+## Tech stack
+
+ - [React](https://reactjs.org/)
+ - [Antd](https://ant.design/)
+ - [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate)
 
 ## Quick start
 
@@ -11,10 +26,8 @@
 
 ## Documentation
 
-## Contributors
-
-
-## Supporters
+ - [Backend Source Code](https://github.com/yocto-erp/backend)
+ - [Backend API document](https://yocto-backend.readthedocs.io/en/latest/)
 
 
 ## License
