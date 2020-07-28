@@ -1,8 +1,5 @@
 import produce from 'immer';
-import {
-  createActionType,
-  createAsyncActionType,
-} from '../../../../_core/utils/reducerInjectors';
+import { createActionType } from '../../../../_core/utils/reducerInjectors';
 
 export const MODULE_STATE_NAME = 'AUTH';
 

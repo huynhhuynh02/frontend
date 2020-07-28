@@ -3,7 +3,6 @@ import { isEmpty, isFunction, isString } from 'lodash';
 
 import checkStore from '_core/utils/checkStore';
 import createReducer from 'redux/reducers';
-import { MODULE_STATE_NAME } from '../../app/pages/inventory/warehouses/constants';
 
 export function injectReducerFactory(store, isValid) {
   return function injectReducer(key, reducer) {
