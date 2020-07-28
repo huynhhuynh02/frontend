@@ -14,7 +14,7 @@ import { reducer as notificationReducer } from 'app/containers/Notification/noti
  * Merges the main reducer with the router state and dynamically injected reducers
  */
 export default function createReducer(injectedReducers = {}) {
-  const rootReducer = combineReducers({
+  return combineReducers({
     // global: globalReducer,
     language: languageProviderReducer,
     router: connectRouter(history),
@@ -22,6 +22,4 @@ export default function createReducer(injectedReducers = {}) {
     notification: notificationReducer,
     ...injectedReducers,
   });
-
-  return rootReducer;
 }

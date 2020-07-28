@@ -115,8 +115,7 @@ export const actions = {
 };
 
 export function toModel(values) {
-  const data = { ...values };
-  return data;
+  return { ...values };
 }
 
 export function* saga() {

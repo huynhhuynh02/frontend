@@ -1,20 +1,32 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { MODULE_STATE_NAME } from '../app/modules/auth/pages/reducer';
 // eslint-disable-next-line no-unused-vars
+
 export default function setupAxios(axios, store) {
-  // axios.interceptors.request.use(
-  //   config =>
-  //     // const {
-  //     //   auth: { authToken },
-  //     // } = store.getState();
-  //     //
-  //     // if (authToken) {
-  //     //   config.headers.Authorization = `Bearer ${authToken}`;
-  //     // }
-  //
-  //     config,
-  //   err => Promise.reject(err),
-  // );
+  axios.interceptors.request.use(config => {
+    const {
+      [MODULE_STATE_NAME]: { token },
+    } = store.getState();
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  });
+
+  axios.interceptors.response.use(
+    function(response) {
+      // Any status code that lie within the range of 2xx cause this function to trigger
+      // Do something with response data
+      return response.data;
+    },
+    function(error) {
+      console.log(error);
+      // Any status codes that falls outside the range of 2xx cause this function to trigger
+      // Do something with response error
+      return Promise.reject(error);
+    },
+  );
 }
 
 // This sets the mock adapter on the default instance

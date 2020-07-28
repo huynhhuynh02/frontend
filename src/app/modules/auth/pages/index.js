@@ -1,4 +1,5 @@
 import Logout from './Logout';
-import AuthPage from './AuthPage';
+import Login from './Login';
+import Register from './Register';
 
-export { Logout, AuthPage };
+export { Logout, Login, Register };

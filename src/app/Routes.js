@@ -1,37 +1,27 @@
 import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
-// import { shallowEqual, useSelector } from 'react-redux';
-import { Logout, AuthPage } from 'app/modules/auth/pages';
+import { shallowEqual, useSelector } from 'react-redux';
+import { Logout, Login } from 'app/modules/auth/pages';
 import Layout from '_core/components/layout/Layout';
 import ErrorsPage from 'app/pages/error/ErrorsPage';
 import BasePage from './BasePage';
+import { selectIsAuthorize } from './modules/auth/pages/selectors';
 
 export function Routes() {
-  // const { isAuthorized } = useSelector(
-  //   ({ auth }) => ({
-  //     isAuthorized: auth.user != null,
-  //   }),
-  //   shallowEqual,
-  // );
-  const isAuthorized = true;
+  const isAuthorized = useSelector(selectIsAuthorize());
+  console.log(`Is Authorized ? ${isAuthorized}`);
+
   return (
     <Switch>
-      {!isAuthorized ? (
-        /* Render auth page when user at `/auth` and not authorized. */
-        <Route>
-          <AuthPage />
-        </Route>
-      ) : (
-        /* Otherwise redirect to root page (`/`) */
-        <Redirect from="/auth" to="/" />
-      )}
-
+      <Route path="/auth/register" component={Login} />
       <Route path="/error" component={ErrorsPage} />
       <Route path="/logout" component={Logout} />
 
       {!isAuthorized ? (
-        /* Redirect to `/auth` when user is not authorized */
-        <Redirect to="/auth/login" />
+        /* Render auth page when user at `/auth` and not authorized. */
+        <Route>
+          <Login />
+        </Route>
       ) : (
         <Layout>
           <BasePage />

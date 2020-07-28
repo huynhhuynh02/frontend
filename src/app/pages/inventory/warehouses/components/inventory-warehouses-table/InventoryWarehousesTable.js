@@ -13,7 +13,7 @@ import {
   makeSelectInventoryWarehouseList,
 } from 'app/pages/inventory/warehouses/redux/inventory-warehouses.duck';
 
-// TODO: FormattedMessage transalation, PropsTypes eslint
+// TODO: FormattedMessage translation, PropsTypes eslint
 const ActionCol = ({ onDelete, onEdit, isShow }) =>
   isShow && (
     <div style={{ textAlign: 'center' }}>
