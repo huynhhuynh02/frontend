@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'antd/es/card';
-import InventoryWarehousesTable from 'app/pages/inventory/warehouses/components/inventory-warehouses-table/InventoryWarehousesTable';
-import InventoryWarehouseFilter from 'app/pages/inventory/warehouses/components/inventory-warehouses-filter/InventoryWarehouseFilter';
+import InventoryWarehousesTable from 'app/pages/warehouses/components/table/InventoryWarehousesTable';
+import InventoryWarehouseFilter from 'app/pages/warehouses/components/filter-bar/InventoryWarehouseFilter';
 
 function InventoryWarehouseCard({
   tableProps = {},

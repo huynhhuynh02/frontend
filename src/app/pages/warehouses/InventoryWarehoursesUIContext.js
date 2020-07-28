@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { isEqual, isFunction } from 'lodash';
-import { initialFilter } from './constants';
+import { initialFilter } from 'app/pages/warehouses/constants';
 
 const InventoryWarehoursesUIContext = createContext();
 

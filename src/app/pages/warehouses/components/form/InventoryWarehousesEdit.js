@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   actions,
   makeSelectInventoryWarehouseDetail,
-} from 'app/pages/inventory/warehouses/redux/inventory-warehouses.duck';
+} from 'app/pages/warehouses/redux/inventory-warehouses.duck';
 
-import InventoryWarehouseForm from 'app/pages/inventory/warehouses/components/inventory-add-or-edit/InventoryWarehouseForm';
-import { useInventoryWarehousesUIContext } from 'app/pages/inventory/warehouses/InventoryWarehoursesUIContext';
+import InventoryWarehouseForm from 'app/pages/warehouses/components/form/InventoryWarehouseForm';
+import { useInventoryWarehousesUIContext } from 'app/pages/warehouses/InventoryWarehoursesUIContext';
 
 export default function InventoryWarehousesEdit({
   match: {

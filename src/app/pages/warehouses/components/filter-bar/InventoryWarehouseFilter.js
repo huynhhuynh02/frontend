@@ -4,7 +4,7 @@ import Select from 'antd/es/select';
 import Button from 'antd/es/button';
 import DatePicker from 'antd/es/date-picker';
 import isEqual from 'lodash/isEqual';
-import { useInventoryWarehousesUIContext } from 'app/pages/inventory/warehouses/InventoryWarehoursesUIContext';
+import { useInventoryWarehousesUIContext } from 'app/pages/warehouses/InventoryWarehoursesUIContext';
 
 const prepareFilter = (queryParams, searchParams) => ({
   ...queryParams,
