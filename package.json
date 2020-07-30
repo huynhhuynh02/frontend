@@ -98,7 +98,8 @@
     "redux-saga": "1.0.2",
     "reselect": "4.0.0",
     "styled-components": "4.2.0",
-    "yup": "^0.29.1"
+    "yup": "^0.29.1",
+    "animejs": "^3.2.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",

@@ -6,8 +6,7 @@ import { Layout, Row, Col } from 'antd';
 import { Form, Input, FormItem, SubmitButton, ResetButton } from 'formik-antd';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useInjectReducer } from '../../../../_core/utils/injectReducer';
-import { login, MODULE_STATE_NAME, reducer } from './reducer';
+import { login } from './reducer';
 import * as authService from './auth.service';
 import FormError from '../../../../_core/components/form/FormError';
 
@@ -37,7 +36,6 @@ const Title = styled.h1`
 `;
 
 function Login() {
-  // useInjectSaga({key: MODULE_STATE_NAME, saga});
   const dispatch = useDispatch();
 
   const [errors, setErrors] = useState([]);
@@ -49,8 +47,6 @@ function Login() {
       span: 18,
     },
   };
-
-  useInjectReducer({ key: MODULE_STATE_NAME, reducer });
 
   return (
     <Layout style={{ height: '100vh' }}>

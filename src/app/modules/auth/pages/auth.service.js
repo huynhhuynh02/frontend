@@ -6,3 +6,10 @@ export const login = ({ username, password }) =>
     username,
     password,
   });
+
+export const getInfo = token =>
+  axios.get(`${API_URL}/information`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

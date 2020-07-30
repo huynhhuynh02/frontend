@@ -3,7 +3,7 @@ import produce from 'immer';
 
 const MODULE_STATE_NAME = 'yoctoErp__app_notification';
 
-const NOTIFICATION_TYPE = {
+export const NOTIFICATION_TYPE = {
   success: 'success',
   info: 'success',
   warning: 'warning',

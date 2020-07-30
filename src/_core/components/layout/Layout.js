@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Avatar } from 'antd';
 import { push } from 'connected-react-router';
-import { UserOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 
 import ProLayout, { PageContainer } from '@ant-design/pro-layout';
 import defaultProps from './defaultProps';
+import HeaderRight from './HeaderRight';
 
 // eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
@@ -39,11 +38,7 @@ const Layout = ({ children }) => {
             {dom}
           </a>
         )}
-        rightContentRender={() => (
-          <div>
-            <Avatar shape="square" size="small" icon={<UserOutlined />} />
-          </div>
-        )}
+        rightContentRender={() => <HeaderRight />}
       >
         <PageContainer footer="Yocto ERP 2020">{children}</PageContainer>
       </ProLayout>

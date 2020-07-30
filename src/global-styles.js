@@ -9,11 +9,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 
   body.fontLoaded {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    // font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 
   #app {
@@ -22,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     min-width: 100%;
   }
-  
+
   #test-pro-layout {
     height: 100%;
   }

@@ -9,4 +9,10 @@ const selectIsAuthorize = () =>
     authState => authState.isAuthenticated,
   );
 
-export { selectAuth, selectIsAuthorize };
+const selectUser = () =>
+  createSelector(
+    selectAuth,
+    authState => authState.user,
+  );
+
+export { selectAuth, selectIsAuthorize, selectUser };
