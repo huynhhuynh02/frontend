@@ -29,4 +29,9 @@ export default [
   },
   WAREHOUSE_MENU,
   PRODUCT_MENU,
+  {
+    path: '/cost',
+    name: 'Cost Management',
+    icon: <SmileOutlined />,
+  },
 ];
