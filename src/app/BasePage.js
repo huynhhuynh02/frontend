@@ -18,6 +18,10 @@ function BasePage() {
           path="/inventory"
           component={loadable(() => import('app/pages/inventory'))}
         />
+        <Route
+          path="/warehouse"
+          component={loadable(() => import('app/pages/warehouse'))}
+        />
         <Redirect to="/error" />
       </Switch>
     </Suspense>

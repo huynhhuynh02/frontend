@@ -8,19 +8,19 @@ import Button from 'antd/es/button';
 
 const { Item } = Form;
 
-const InventoryWarehouseEditSchema = Yup.object().shape({
+const WarehouseEditSchema = Yup.object().shape({
   name: Yup.string().required('This field is required.'),
 });
 
-function InventoryWarehouseForm({ onSave, inventoryWarehouseItem, onCancel }) {
+function WarehouseForm({ onSave, warehouseItem, onCancel }) {
   const formik = useFormik({
     initialValues: {
-      ...inventoryWarehouseItem,
+      ...warehouseItem,
     },
     enableReinitialize: true,
     validateOnChange: true,
     validateOnBlur: true,
-    validationSchema: InventoryWarehouseEditSchema,
+    validationSchema: WarehouseEditSchema,
     onSubmit: values => {
       onSave(values);
     },
@@ -78,11 +78,11 @@ function InventoryWarehouseForm({ onSave, inventoryWarehouseItem, onCancel }) {
   );
 }
 
-InventoryWarehouseForm.propTypes = {
-  saveInventoryWarehouse: PropTypes.func,
-  inventoryWarehouseItem: PropTypes.object,
+WarehouseForm.propTypes = {
+  saveWarehouse: PropTypes.func,
+  warehouseItem: PropTypes.object,
   onCancel: PropTypes.func,
 };
-InventoryWarehouseForm.defaultProps = {};
+WarehouseForm.defaultProps = {};
 
-export default InventoryWarehouseForm;
+export default WarehouseForm;

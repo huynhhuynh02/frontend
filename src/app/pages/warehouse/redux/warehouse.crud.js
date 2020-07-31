@@ -1,6 +1,6 @@
 import httpClient from 'axios';
 
-const API_ENDPOINT_URL = `api/inventory/warehouses`;
+const API_ENDPOINT_URL = `api/warehouses`;
 
 export function get(id) {
   if (!id) throw new Error('Missing Id');
