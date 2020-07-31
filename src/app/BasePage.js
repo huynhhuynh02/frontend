@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import loadable from '_core/utils/loadable';
+import { PRODUCT_ROOT_PATH } from 'app/pages/product';
 // import PropTypes from 'prop-types';
 function BasePage() {
   return (
@@ -21,6 +22,10 @@ function BasePage() {
         <Route
           path="/warehouse"
           component={loadable(() => import('app/pages/warehouse'))}
+        />
+        <Route
+          path={`${PRODUCT_ROOT_PATH}`}
+          component={loadable(() => import('app/pages/product'))}
         />
         <Redirect to="/error" />
       </Switch>

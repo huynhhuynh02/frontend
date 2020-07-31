@@ -1,6 +1,7 @@
 import React from 'react';
 import { CrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { WAREHOUSE_MENU } from 'app/pages/warehouse';
+import { PRODUCT_MENU } from 'app/pages/product';
 
 export default [
   {
@@ -27,4 +28,5 @@ export default [
     ],
   },
   WAREHOUSE_MENU,
+  PRODUCT_MENU,
 ];
