@@ -40,7 +40,9 @@ const Layout = ({ children }) => {
         )}
         rightContentRender={() => <HeaderRight />}
       >
-        <PageContainer footer="Yocto ERP 2020">{children}</PageContainer>
+        <PageContainer pageHeaderRender={() => ''} footer="Yocto ERP 2020">
+          {children}
+        </PageContainer>
       </ProLayout>
     </div>
   );

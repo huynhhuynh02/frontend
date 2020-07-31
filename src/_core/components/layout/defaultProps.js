@@ -33,6 +33,11 @@ const defaultProps = {
           },
         ],
       },
+      {
+        path: '/cost',
+        name: 'Cost Management',
+        icon: <SmileOutlined />,
+      },
     ],
   },
   location: {
