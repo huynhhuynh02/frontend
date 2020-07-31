@@ -5,7 +5,7 @@ import ProductEdit from 'app/pages/product/components/form/ProductEdit';
 import ProductCard from 'app/pages/product/ProductCard';
 import { ProductUIProvider } from 'app/pages/product/ProductUIContext';
 import { pure } from 'recompose';
-import { PRODUCT_ROOT_PATH } from 'app/pages/product/index';
+import { PRODUCT_ROOT_PATH } from 'app/pages/product';
 
 function ProductPage({ history }) {
   const uiEvents = {
