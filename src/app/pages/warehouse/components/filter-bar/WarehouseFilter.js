@@ -4,7 +4,7 @@ import Select from 'antd/es/select';
 import Button from 'antd/es/button';
 import DatePicker from 'antd/es/date-picker';
 import isEqual from 'lodash/isEqual';
-import { useInventoryWarehousesUIContext } from 'app/pages/warehouses/InventoryWarehoursesUIContext';
+import { useWarehouseUIContext } from 'app/pages/warehouse/WarehouseUIContext';
 
 const prepareFilter = (queryParams, searchParams) => ({
   ...queryParams,
@@ -75,39 +75,39 @@ const FilterBar = props => {
   );
 };
 
-function InventoryWarehouseFilter() {
-  const inventoryWarehousesUIContext = useInventoryWarehousesUIContext();
+function WarehouseFilter() {
+  const warehouseUIContext = useWarehouseUIContext();
 
-  const inventoryWarehousesUIProps = useMemo(
+  const warehouseUIProps = useMemo(
     () => ({
-      setQueryParams: inventoryWarehousesUIContext.setQueryParams,
-      queryParams: inventoryWarehousesUIContext.queryParams,
-      onAddButtonClick: inventoryWarehousesUIContext.onNew,
+      setQueryParams: warehouseUIContext.setQueryParams,
+      queryParams: warehouseUIContext.queryParams,
+      onAddButtonClick: warehouseUIContext.onNew,
     }),
-    [inventoryWarehousesUIContext],
+    [warehouseUIContext],
   );
 
   const applyFilter = searchParams => {
     console.log('searchParams', searchParams);
     const newQueryParams = prepareFilter(
-      inventoryWarehousesUIProps.queryParams,
+      warehouseUIProps.queryParams,
       searchParams,
     );
-    if (!isEqual(newQueryParams, inventoryWarehousesUIProps.queryParams)) {
+    if (!isEqual(newQueryParams, warehouseUIProps.queryParams)) {
       newQueryParams.page = 0;
-      inventoryWarehousesUIProps.setQueryParams(newQueryParams);
+      warehouseUIProps.setQueryParams(newQueryParams);
     }
   };
 
   return (
     <FilterBar
       onSearch={applyFilter}
-      onAdd={inventoryWarehousesUIProps.onAddButtonClick}
+      onAdd={warehouseUIProps.onAddButtonClick}
     />
   );
 }
 
-InventoryWarehouseFilter.propTypes = {};
-InventoryWarehouseFilter.defaultProps = {};
+WarehouseFilter.propTypes = {};
+WarehouseFilter.defaultProps = {};
 
-export default InventoryWarehouseFilter;
+export default WarehouseFilter;

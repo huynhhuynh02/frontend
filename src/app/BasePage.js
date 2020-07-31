@@ -23,6 +23,10 @@ function BasePage() {
             component={loadable(() => import('app/pages/inventory'))}
           />
           <Route
+            path="/warehouse"
+            component={loadable(() => import('app/pages/warehouse'))}
+          />
+          <Route
             path="/cost"
             component={loadable(() => import('app/pages/cost-management'))}
           />

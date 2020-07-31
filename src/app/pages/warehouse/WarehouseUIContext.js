@@ -1,17 +1,16 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { isEqual, isFunction } from 'lodash';
-import { initialFilter } from 'app/pages/warehouses/constants';
+import { initialFilter } from 'app/pages/warehouse/constants';
 
-const InventoryWarehoursesUIContext = createContext();
+const WarehouseUIContext = createContext();
 
-export function useInventoryWarehousesUIContext() {
-  return useContext(InventoryWarehoursesUIContext);
+export function useWarehouseUIContext() {
+  return useContext(WarehouseUIContext);
 }
 
-export const InventoryWarehousesUIConsumer =
-  InventoryWarehoursesUIContext.Consumer;
+export const WarehouseUIConsumer = WarehouseUIContext.Consumer;
 
-export function InventoryWarehousesUIProvider({ uiEvents, children }) {
+export function WarehouseUIProvider({ uiEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const setQueryParams = useCallback(nextQueryParams => {
     setQueryParamsBase(prevQueryParams => {
@@ -38,8 +37,8 @@ export function InventoryWarehousesUIProvider({ uiEvents, children }) {
   };
 
   return (
-    <InventoryWarehoursesUIContext.Provider value={value}>
+    <WarehouseUIContext.Provider value={value}>
       {children}
-    </InventoryWarehoursesUIContext.Provider>
+    </WarehouseUIContext.Provider>
   );
 }
