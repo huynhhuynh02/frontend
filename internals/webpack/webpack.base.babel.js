@@ -129,6 +129,7 @@ module.exports = options => ({
     // drop any unreachable code.
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+      MOCK: process.env.MOCK,
     }),
   ]),
   resolve: {

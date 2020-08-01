@@ -1,14 +1,15 @@
 import React from 'react';
-import { pure } from 'recompose';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import CostCreatePage from './CostCreatePage';
 import CostEditPage from './CostEditPage';
 import CostListPage from './CostListPage';
-import PrivateRoute from '../../components/PrivateRoute';
-import { PERMISSION } from '../../constants';
+import { useInjectReducer } from '../../../_core/utils/injectReducer';
+import { COST_MODULE_NAME, reducer } from './cost.duck';
 
 const CostMainPage = () => {
   const path = '/cost';
+  useInjectReducer({ key: COST_MODULE_NAME, reducer });
+
   return (
     <Switch>
       {
@@ -17,16 +18,11 @@ const CostMainPage = () => {
       }
       <Route path={`${path}/new`} component={CostCreatePage} />
       <Route path={`${path}/:id/edit`} component={CostEditPage} />
-      <PrivateRoute
-        path={`${path}/list`}
-        permissions={[PERMISSION.WAREHOUSE.CREATE]}
-      >
-        <CostListPage />
-      </PrivateRoute>
+      <Route path={`${path}/list`} component={CostListPage} />
     </Switch>
   );
 };
 
 CostMainPage.propTypes = {};
 
-export default pure(CostMainPage);
+export default CostMainPage;
