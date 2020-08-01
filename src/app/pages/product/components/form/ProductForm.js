@@ -1,88 +1,94 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import Form from 'antd/es/form';
-import Input from 'antd/es/input';
-import { useFormik } from 'formik';
-import Button from 'antd/es/button';
-
-const { Item } = Form;
+import Row from 'antd/es/row';
+import Col from 'antd/es/col';
+import Card from 'antd/es/card';
+import { Formik } from 'formik';
+import { Form, FormItem, Input, InputNumber } from 'formik-antd';
+import UnitsField from 'app/pages/product/components/form/UnitsField';
+import UploadImageField from 'app/pages/product/components/form/UploadImagesField';
+import CancelButton from '_core/components/CancelButton';
+import SubmitButton from '_core/components/SubmitButton';
 
 const ProductEditSchema = Yup.object().shape({
   name: Yup.string().required('This field is required.'),
+  priceBaseUnit: Yup.number().required('This field is required.'),
+  units: Yup.array().required('This field is required.'),
 });
 
 function ProductForm({ onSave, productItem, onCancel }) {
-  const formik = useFormik({
-    initialValues: {
-      ...productItem,
-    },
-    enableReinitialize: true,
-    validateOnChange: true,
-    validateOnBlur: true,
-    validationSchema: ProductEditSchema,
-    onSubmit: values => {
-      onSave(values);
-    },
-  });
-
-  const {
-    values,
-    errors,
-    isSubmitting,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = formik;
-
-  const validateField = (field, hasFeedback = true) => ({
-    validateStatus: errors[field] && touched[field] ? 'error' : '',
-    help: errors[field] && touched[field] ? errors[field] : '',
-    hasFeedback,
-  });
   return (
-    <Form layout="horizontal" onSubmit={formik.handleSubmit}>
-      <Item label="Name" colon={false} {...validateField('name')}>
-        <Input
-          type="text"
-          name="name"
-          id="name"
-          placeholder="Name"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          size="large"
-        />
-      </Item>
-
-      <Item
-        style={{
-          textAlign: 'right',
-          paddingTop: '0.5rem',
+    <Card>
+      <Formik
+        initialValues={{
+          ...productItem,
+        }}
+        enableReinitialize
+        validateOnBlur
+        validationSchema={ProductEditSchema}
+        onSubmit={values => {
+          onSave(values);
         }}
       >
-        <Button type="primary" size="large" ghost onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button
-          size="large"
-          type="primary"
-          disabled={isSubmitting}
-          onClick={handleSubmit}
-        >
-          Save
-        </Button>
-      </Item>
-    </Form>
+        <Form layout="vertical">
+          <Row gutter={16}>
+            <Col span={12}>
+              <FormItem
+                label="Name"
+                name="name"
+                hasFeedback
+                showValidateSuccess
+              >
+                <Input name="name" />
+              </FormItem>
+            </Col>
+
+            <Col span={12}>
+              <FormItem
+                name="priceBaseUnit"
+                label="Price base on unit"
+                hasFeedback
+                showValidateSuccess
+              >
+                <InputNumber name="priceBaseUnit" style={{ width: '100%' }} />
+              </FormItem>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Row gutter={16}>
+                <Col span={24}>
+                  <UploadImageField />
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={24}>
+                  <FormItem name="remark" label="Remarks">
+                    <Input.TextArea name="remark" rows="5" />
+                  </FormItem>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={12}>
+              <UnitsField />
+            </Col>
+          </Row>
+          <FormItem name="action" style={{ float: 'right', marginTop: 16 }}>
+            <CancelButton onClick={onCancel} />
+            <SubmitButton />
+          </FormItem>
+        </Form>
+      </Formik>
+    </Card>
   );
 }
 
-ProductForm.propTypes = {
-  saveProduct: PropTypes.func,
-  productItem: PropTypes.object,
-  onCancel: PropTypes.func,
-};
+// ProductForm.propTypes = {
+//   saveProduct: PropTypes.func,
+//   productItem: PropTypes.object,
+//   onCancel: PropTypes.func,
+// };
 ProductForm.defaultProps = {};
 
 export default ProductForm;

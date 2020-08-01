@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
-import * as crud from 'app/pages/product/redux/product.crud';
+import crud from 'app/pages/product/redux/product.crud';
 import { showNotification } from 'app/containers/Notification/notification.duck';
 import { MODULE_STATE_NAME } from 'app/pages/product/constants';
 import {
@@ -19,7 +19,7 @@ export function* saga() {
     action,
   ) {
     try {
-      const data = yield call(crud.get, action.payload);
+      const data = yield call(crud.read, action.payload);
       yield put(actions.productFetchedSuccess(data));
     } catch (error) {
       yield put(
@@ -35,9 +35,9 @@ export function* saga() {
     action,
   ) {
     try {
-      const data = yield call(crud.create, toModel(action.payload));
+      const data = yield call(crud.create, toModel(action.payload.data));
       yield put(actions.productCreatedSuccess(data));
-      action.callback && action.callback();
+      action.payload.callback && action.payload.callback();
       yield put(
         showNotification('success', {
           message: 'Create Product Success',
@@ -59,8 +59,8 @@ export function* saga() {
     try {
       const data = yield call(
         crud.update,
-        action.payload.id,
-        toModel(action.payload),
+        action.payload.data.id,
+        toModel(action.payload.data),
       );
       yield put(actions.productUpdatedSuccess(data));
       yield put(
@@ -69,7 +69,7 @@ export function* saga() {
         }),
       );
 
-      action.callback && action.callback();
+      action.payload.callback && action.payload.callback();
     } catch (error) {
       console.error(error);
       yield put(
@@ -86,8 +86,8 @@ export function* saga() {
   ) {
     try {
       yield call(crud.remove, action.payload.id);
-      yield put(actions.remove.success(action.payload));
-      action.callback && action.callback();
+      yield put(actions.productDeletedSuccess(action.payload));
+      action.payload.callback && action.payload.callback();
       yield put(
         showNotification('success', {
           message: 'Delete Product Success',
@@ -100,7 +100,7 @@ export function* saga() {
           message: 'Delete Product Error',
         }),
       );
-      yield put(actions.remove.error({ error }));
+      yield put(actions.error({ error }));
     }
   });
 
@@ -108,9 +108,10 @@ export function* saga() {
     action,
   ) {
     try {
-      const data = yield call(crud.filter, action.payload);
+      const data = yield call(crud.search, action.payload);
       yield put(actions.productListFetchedSuccess(data));
     } catch (error) {
+      console.error(error);
       yield put(
         showNotification('error', {
           message: 'Filter Product Error',
@@ -121,23 +122,25 @@ export function* saga() {
   });
 }
 
-const selectProductListState = state =>
+const selectProductState = state =>
   state[MODULE_STATE_NAME] || initialProductState;
 
-export const makeSelectProductDetail = createSelector(
-  selectProductListState,
-  (state = {}) => {
-    const { productDetail = {} } = state;
-    return {
-      ...productDetail,
-    };
-  },
-);
+export const makeSelectProductDetail = () =>
+  createSelector(
+    selectProductState,
+    (state = {}) => {
+      const { productDetail = {} } = state;
+      return {
+        ...productDetail,
+      };
+    },
+  );
 
-export const makeSelectProductList = createSelector(
-  selectProductListState,
-  (state = {}) => ({
-    ...state.productList,
-    results: state.productList.results || [],
-  }),
-);
+export const makeSelectProductList = () =>
+  createSelector(
+    selectProductState,
+    (state = {}) => ({
+      ...state.productList,
+      rows: state.productList.rows || [],
+    }),
+  );

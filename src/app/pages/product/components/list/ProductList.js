@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import Modal from 'antd/es/modal';
 import Table from 'antd/es/table';
+
 import { useProductUIContext } from 'app/pages/product/ProductUIContext';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -8,25 +8,10 @@ import {
   makeSelectProductList,
 } from 'app/pages/product/redux/product.duck';
 import { SimpleTableAction } from '_core/components/TableAction/SimpleTableAction';
-import UpdatedTimeView from '_core/components/UpdatedTimeView/UpdatedTimeView';
-import UpdatedUserView from '_core/components/UpdatedUserView/UpdatedUserView';
+import UpdatedTimeView from '_core/components/UpdatedTimeView';
+import UpdatedUserView from '_core/components/UpdatedUserView';
 
-const useDeleteProduct = onDeleteProduct => {
-  const dispatch = useDispatch();
-  return useCallback(
-    (rowData, onDeleteProductCb) => {
-      Modal.confirm({
-        title: `Delete Product`,
-        content: `Are you sure that you want to remove this record?`,
-        onOk: () => {
-          dispatch(onDeleteProduct(rowData, onDeleteProductCb));
-          return Promise.resolve(true);
-        },
-      });
-    },
-    [dispatch],
-  );
-};
+import getSortParams from '_core/utils/getSortPrams';
 
 function ProductList({ hideActionCol }) {
   const productUIContext = useProductUIContext();
@@ -36,17 +21,13 @@ function ProductList({ hideActionCol }) {
       queryParams: productUIContext.queryParams,
       setQueryParams: productUIContext.setQueryParams,
       onEdit: productUIContext.onEdit,
+      onDelete: productUIContext.onDelete,
     }),
     [productUIContext],
   );
 
   const dispatch = useDispatch();
 
-  const handleDeleteCallback = useCallback(() => {
-    dispatch(actions.filter.start(productUIProps.queryParams));
-  }, [productUIProps]);
-
-  const onDeleteProduct = useDeleteProduct(actions.productDeleteStart);
   const columns = [
     {
       title: 'Image',
@@ -73,21 +54,18 @@ function ProductList({ hideActionCol }) {
       sorter: true,
     },
     {
-      title: 'Last updated time',
+      title: 'Last Updated',
       width: '15%',
-      render: (_, rowData) => (
-        <UpdatedTimeView value={rowData.lastModifiedDate} />
-      ),
+      dataIndex: 'lastModifiedDate',
+      render: lastModifiedDate =>
+        lastModifiedDate && <UpdatedTimeView value={lastModifiedDate} />,
       sorter: true,
     },
     {
       title: 'Created by',
       width: '10%',
-      render: (_, rowData) => (
-        <UpdatedUserView
-          value={rowData.createdBy ? rowData.createdBy.name : ''}
-        />
-      ),
+      dataIndex: 'createdBy',
+      render: createdBy => <UpdatedUserView {...createdBy} />,
       sorter: true,
     },
   ];
@@ -102,37 +80,34 @@ function ProductList({ hideActionCol }) {
       render: (_, rowData) => (
         <SimpleTableAction
           isShow
-          onDelete={() => onDeleteProduct(rowData, handleDeleteCallback)}
+          onDelete={() => productUIProps.onDelete(rowData.id)}
           onEdit={() => productUIProps.onEdit(rowData.id)}
         />
       ),
     });
   }
 
-  const productState = useSelector(makeSelectProductList);
-  const { quantity: totalCount, results: product } = productState;
+  const productState = useSelector(makeSelectProductList());
+  const { count: totalCount, rows: productRows } = productState;
 
   useEffect(() => {
-    console.log('dispach table');
     dispatch(actions.productListStart(productUIProps.queryParams));
     return () => dispatch(actions.resetState());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productUIProps.queryParams, dispatch]);
+  }, [productUIProps.queryParams]);
 
   const pagination = {
     page: productUIProps.queryParams.page || 0,
-    pageSize: productUIProps.queryParams.count,
+    pageSize: productUIProps.queryParams.size,
     total: totalCount || 0,
   };
+
   const applyFilter = useCallback(
-    // eslint-disable-next-line no-shadow
     (pagination, filters, { order, field }) => {
       const newQueryParams = {
         ...productUIProps.queryParams,
-        sortField: field || productUIProps.queryParams.sortField,
-        isDesc: order !== 'ascend',
+        sorts: getSortParams(field, order),
         page: pagination.current - 1,
-        count: pagination.pageSize,
+        size: pagination.pageSize,
       };
       productUIProps.setQueryParams(newQueryParams);
     },
@@ -140,7 +115,7 @@ function ProductList({ hideActionCol }) {
   );
 
   const tableProps = {
-    dataSource: product || [],
+    dataSource: productRows || [],
     columns,
     rowKey: row => row.id,
     pagination,

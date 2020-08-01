@@ -1,20 +1,26 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import Input from 'antd/es/input';
-import Select from 'antd/es/select';
-import Button from 'antd/es/button';
 import DatePicker from 'antd/es/date-picker';
 import isEqual from 'lodash/isEqual';
+import styled from 'styled-components';
+
 import { useProductUIContext } from 'app/pages/product/ProductUIContext';
+import { SearchOutlined } from '@ant-design/icons';
+import AddButton from '_core/components/AddButton';
 
 const prepareFilter = (queryParams, searchParams) => ({
   ...queryParams,
   ...searchParams,
 });
 
-const FilterBar = props => {
+const ActionWrapper = styled.div`
+  margin: 16px 0;
+  text-align: right;
+`;
+
+const FilterBar = ({ initialValues, onSearch, onAdd }) => {
   const [searchParams, setSearchParams] = useState({
-    productId: null,
-    queryString: null,
+    search: initialValues.search || '',
     dateRange: {
       startDate: '',
       endDate: '',
@@ -28,50 +34,37 @@ const FilterBar = props => {
     });
   };
 
-  const handleSearch = value => {
-    props.onSearch({
-      queryString: value,
-      productId: searchParams.productId,
+  useEffect(() => {
+    onSearch({
+      search: searchParams.search,
       startDate: searchParams.dateRange.startDate,
       endDate: searchParams.dateRange.endDate,
     });
-  };
-  const handleSearchCallback = useCallback(handleSearch, [searchParams]);
+  }, [searchParams]);
 
   return (
-    <Input.Group compact>
-      <DatePicker.RangePicker
-        style={{ width: '20%' }}
-        onChange={values => {
-          handleChangeValue('dateRange', {
-            startDate: values[0].toISOString(),
-            endDate: values[1].toISOString(),
-          });
-        }}
-      />
-      <Select
-        name="productId"
-        defaultValue="all"
-        style={{ width: '20%' }}
-        onChange={value => handleChangeValue('productId', value)}
-      >
-        <Select.Option value="all">All</Select.Option>
-        <Select.Option value="product1">Product 1</Select.Option>
-      </Select>
-      <Input.Search
-        style={{ width: '55%' }}
-        onSearch={handleSearchCallback}
-        placeholder="input search text"
-        enterButton="Search"
-      />
-      <Button
-        type="primary"
-        onClick={props.onAdd}
-        style={{ width: '5%', float: 'right' }}
-      >
-        New
-      </Button>
-    </Input.Group>
+    <>
+      <ActionWrapper>
+        <AddButton label="Add Product" onClick={onAdd} />
+      </ActionWrapper>
+      <Input.Group compact>
+        <Input
+          prefix={<SearchOutlined />}
+          style={{ width: '55%' }}
+          onChange={e => handleChangeValue('search', e.currentTarget.value)}
+          placeholder="Search by name ..."
+        />
+        <DatePicker.RangePicker
+          style={{ width: '45%' }}
+          onChange={values => {
+            handleChangeValue('dateRange', {
+              startDate: values[0].toISOString(),
+              endDate: values[1].toISOString(),
+            });
+          }}
+        />
+      </Input.Group>
+    </>
   );
 };
 
@@ -88,19 +81,22 @@ function ProductFilter() {
   );
 
   const applyFilter = searchParams => {
-    console.log('searchParams', searchParams);
     const newQueryParams = prepareFilter(
       productUIProps.queryParams,
       searchParams,
     );
     if (!isEqual(newQueryParams, productUIProps.queryParams)) {
-      newQueryParams.page = 0;
+      newQueryParams.page = 1;
       productUIProps.setQueryParams(newQueryParams);
     }
   };
 
   return (
-    <FilterBar onSearch={applyFilter} onAdd={productUIProps.onAddButtonClick} />
+    <FilterBar
+      initialValues={productUIProps.queryParams}
+      onSearch={applyFilter}
+      onAdd={productUIProps.onAddButtonClick}
+    />
   );
 }
 

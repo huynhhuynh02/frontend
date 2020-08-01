@@ -23,7 +23,7 @@ export default function ProductEdit({
     [productUIContext],
   );
 
-  const productItem = useSelector(makeSelectProductDetail);
+  const productItem = useSelector(makeSelectProductDetail());
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,9 +38,19 @@ export default function ProductEdit({
 
   const handleSave = values => {
     if (!id) {
-      dispatch(actions.productCreateStart(values, handleCancel));
+      dispatch(
+        actions.productCreateStart({
+          data: values,
+          callback: handleCancel,
+        }),
+      );
     } else {
-      dispatch(actions.productUpdateStart(values, handleCancel));
+      dispatch(
+        actions.productUpdateStart({
+          data: values,
+          callback: handleCancel,
+        }),
+      );
     }
   };
 

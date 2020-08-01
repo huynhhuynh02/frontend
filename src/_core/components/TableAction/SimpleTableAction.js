@@ -1,25 +1,23 @@
 import React from 'react';
 import Tooltip from 'antd/es/tooltip';
-import Button from 'antd/es/button';
 import DeleteIcon from '@ant-design/icons/lib/icons/DeleteOutlined';
-import EditIcon from '@ant-design/icons/lib/icons/EditOutlined';
+import { Space } from 'antd';
+import EditButton from '_core/components/EditButton';
+import DeleteButton from '_core/components/DeleteButton';
 
 export const SimpleTableAction = ({ onDelete, onEdit, isShow }) =>
   isShow && (
-    <div style={{ textAlign: 'center' }}>
+    <Space>
       <Tooltip title="Delete">
-        <Button
+        <DeleteButton
           size="small"
           onClick={onDelete}
           type="danger"
           icon={<DeleteIcon />}
         />
-        <Button
-          size="small"
-          onClick={onEdit}
-          type="primary"
-          icon={<EditIcon />}
-        />
       </Tooltip>
-    </div>
+      <Tooltip title="Delete">
+        <EditButton onClick={onEdit} />
+      </Tooltip>
+    </Space>
   );
