@@ -5,7 +5,6 @@ import { Button, Space } from 'antd';
 import { Input, FormItem } from 'formik-antd';
 import { useFormikContext } from 'formik';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { pure } from 'recompose';
 
 const SpaceWrapper = styled(Space)`
   .ant-space-item {
@@ -74,4 +73,4 @@ const UnitsField = () => {
   );
 };
 
-export default pure(UnitsField);
+export default UnitsField;

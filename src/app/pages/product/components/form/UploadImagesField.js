@@ -5,7 +5,6 @@ import { FormItem } from 'formik-antd';
 import * as uuid from 'uuid';
 
 import { useFormikContext } from 'formik';
-import { pure } from 'recompose';
 
 function getFileList(assets) {
   return assets.map(a => ({
@@ -77,4 +76,4 @@ function UploadImagesField() {
 UploadImagesField.propTypes = {};
 UploadImagesField.defaultProps = {};
 
-export default pure(UploadImagesField);
+export default UploadImagesField;
