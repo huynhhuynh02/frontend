@@ -96,7 +96,7 @@ function ProductList({ hideActionCol }) {
   }, [productUIProps.queryParams]);
 
   const pagination = {
-    page: productUIProps.queryParams.page || 0,
+    page: productUIProps.queryParams.page || 1,
     pageSize: productUIProps.queryParams.size,
     total: totalCount || 0,
   };
