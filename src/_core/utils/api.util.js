@@ -6,12 +6,12 @@ export const crudRequest = resourcePath => {
 
   function read(id) {
     if (!id) throw new Error('Missing Id');
-    return httpClient.get(`${API_ENDPOINT_URL}/${id}`).then(rs => rs);
+    return httpClient.get(`${API_ENDPOINT_URL}/${id}`);
   }
 
   function search(params) {
     if (!params) throw new Error('Missing Params');
-    return httpClient.get(`${API_ENDPOINT_URL}`, { params }).then(rs => rs);
+    return httpClient.get(`${API_ENDPOINT_URL}`, { params });
   }
 
   function update(id, data) {

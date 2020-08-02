@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import ProductEdit from 'app/pages/product/components/form/ProductEdit';
-import ProductsPage from 'app/pages/product/ProductsPage';
+import ProductListPage from 'app/pages/product/ProductListPage';
 
 import { PRODUCT_ROOT_PATH } from 'app/pages/product';
 import PrivateRoute from 'app/containers/PrivateRoute';
@@ -23,7 +23,7 @@ function ProductPage() {
       <PrivateRoute
         permissions={[PERMISSION.PRODUCT.LIST]}
         path={`${PRODUCT_ROOT_PATH}`}
-        component={ProductsPage}
+        component={ProductListPage}
       />
     </Switch>
   );

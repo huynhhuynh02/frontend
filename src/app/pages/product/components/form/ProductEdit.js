@@ -18,6 +18,7 @@ export default function ProductEdit({
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // check CREATE or EDIT
     if (id) {
       dispatch(actions.productDetailStart(id));
     }
