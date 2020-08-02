@@ -1,8 +1,10 @@
 import React, { Suspense } from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import loadable from '_core/utils/loadable';
-import { PRODUCT_ROOT_PATH } from 'app/pages/product';
+import ProductPage, { PRODUCT_ROOT_PATH } from 'app/pages/product';
 import Alert from 'antd/es/alert';
+import PrivateRoute from 'app/containers/PrivateRoute';
+import { PERMISSION } from 'app/constants';
 
 const { ErrorBoundary } = Alert;
 
@@ -32,9 +34,10 @@ function BasePage() {
             path="/cost"
             component={loadable(() => import('app/pages/cost-management'))}
           />
-          <Route
+          <PrivateRoute
+            permissions={[PERMISSION.PRODUCT.LIST]}
             path={`${PRODUCT_ROOT_PATH}`}
-            component={loadable(() => import('app/pages/product'))}
+            component={ProductPage}
           />
           <Redirect to="/error" />
         </Switch>

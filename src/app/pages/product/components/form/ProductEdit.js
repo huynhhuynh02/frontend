@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   makeSelectProductDetail,
@@ -6,23 +6,14 @@ import {
 } from 'app/pages/product/redux/product.duck';
 
 import ProductForm from 'app/pages/product/components/form/ProductForm';
-import { useProductUIContext } from 'app/pages/product/ProductUIContext';
+import { PRODUCT_ROOT_PATH } from 'app/pages/product/index';
 
 export default function ProductEdit({
+  history,
   match: {
     params: { id },
   },
 }) {
-  const productUIContext = useProductUIContext();
-
-  const productUIProps = useMemo(
-    () => ({
-      queryParams: productUIContext.queryParams,
-      onCancel: productUIContext.onCancel,
-    }),
-    [productUIContext],
-  );
-
   const productItem = useSelector(makeSelectProductDetail());
   const dispatch = useDispatch();
 
@@ -33,22 +24,27 @@ export default function ProductEdit({
   }, [id, dispatch]);
 
   const handleCancel = () => {
-    productUIProps.onCancel();
+    history.push(`${PRODUCT_ROOT_PATH}`);
   };
 
-  const handleSave = values => {
+  const handleSave = (values, formActions) => {
     if (!id) {
       dispatch(
         actions.productCreateStart({
           data: values,
-          callback: handleCancel,
+          callback: () => {
+            handleCancel();
+            formActions.setSubmitting(false);
+          },
         }),
       );
     } else {
       dispatch(
         actions.productUpdateStart({
           data: values,
-          callback: handleCancel,
+          callback: () => {
+            formActions.setSubmitting(false);
+          },
         }),
       );
     }

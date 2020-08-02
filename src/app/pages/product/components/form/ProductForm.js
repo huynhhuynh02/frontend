@@ -27,8 +27,8 @@ function ProductForm({ onSave, productItem, onCancel }) {
         enableReinitialize
         validateOnBlur
         validationSchema={ProductEditSchema}
-        onSubmit={values => {
-          onSave(values);
+        onSubmit={(values, actions) => {
+          onSave(values, actions);
         }}
       >
         <Form layout="vertical">

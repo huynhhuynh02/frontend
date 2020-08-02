@@ -1,10 +1,11 @@
 import React from 'react';
 import { pure } from 'recompose';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import PrivateRoute from 'app/containers/PrivateRoute';
 import CostCreatePage from './CostCreatePage';
 import CostEditPage from './CostEditPage';
 import CostListPage from './CostListPage';
-import PrivateRoute from '../../components/PrivateRoute';
+
 import { PERMISSION } from '../../constants';
 
 const CostMainPage = () => {

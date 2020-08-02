@@ -8,7 +8,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { login } from './reducer';
 import * as authService from './auth.service';
-import FormError from '../../../../_core/components/form/FormError';
+import FormError from '../../../../_core/components/Form/FormError';
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()

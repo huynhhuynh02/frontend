@@ -5,11 +5,12 @@ export const DEFAULT_PAGING = {
   size: 10,
   sorts: [],
 };
-
+// TODO: should load system config from BE
 export const PERMISSION = {
   PRODUCT: {
     CREATE: 1,
     READ: 2,
+    LIST: 2,
     UPDATE: 3,
     DELETE: 4,
   },

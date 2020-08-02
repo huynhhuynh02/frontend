@@ -20,7 +20,7 @@ export function* saga() {
   ) {
     try {
       const data = yield call(crud.read, action.payload);
-      yield put(actions.productFetchedSuccess(data));
+      yield put(actions.productDetailSuccess(data));
     } catch (error) {
       yield put(
         showNotification('error', {
@@ -36,7 +36,7 @@ export function* saga() {
   ) {
     try {
       const data = yield call(crud.create, toModel(action.payload.data));
-      yield put(actions.productCreatedSuccess(data));
+      yield put(actions.productCreateSuccess(data));
       action.payload.callback && action.payload.callback();
       yield put(
         showNotification('success', {
@@ -62,7 +62,7 @@ export function* saga() {
         action.payload.data.id,
         toModel(action.payload.data),
       );
-      yield put(actions.productUpdatedSuccess(data));
+      yield put(actions.productUpdateSuccess(data));
       yield put(
         showNotification('success', {
           message: 'Update Product Success',
@@ -86,7 +86,7 @@ export function* saga() {
   ) {
     try {
       yield call(crud.remove, action.payload.id);
-      yield put(actions.productDeletedSuccess(action.payload));
+      yield put(actions.productDeleteSuccess(action.payload));
       action.payload.callback && action.payload.callback();
       yield put(
         showNotification('success', {
@@ -109,7 +109,7 @@ export function* saga() {
   ) {
     try {
       const data = yield call(crud.search, action.payload);
-      yield put(actions.productListFetchedSuccess(data));
+      yield put(actions.productListSuccess(data));
     } catch (error) {
       console.error(error);
       yield put(

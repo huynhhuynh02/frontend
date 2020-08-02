@@ -1,12 +1,14 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import Input from 'antd/es/input';
 import DatePicker from 'antd/es/date-picker';
 import isEqual from 'lodash/isEqual';
 import styled from 'styled-components';
+import _debounce from 'lodash/fp/debounce';
 
 import { useProductUIContext } from 'app/pages/product/ProductUIContext';
 import { SearchOutlined } from '@ant-design/icons';
 import AddButton from '_core/components/AddButton';
+import { DEBOUNCING_TIME_AUTO_SEARCH } from 'app/constants';
 
 const prepareFilter = (queryParams, searchParams) => ({
   ...queryParams,
@@ -91,10 +93,18 @@ function ProductFilter() {
     }
   };
 
+  const onAutoSearch = useCallback(
+    _debounce(
+      DEBOUNCING_TIME_AUTO_SEARCH,
+      (...args) => applyFilter && applyFilter(...args),
+    ),
+    [applyFilter],
+  );
+
   return (
     <FilterBar
       initialValues={productUIProps.queryParams}
-      onSearch={applyFilter}
+      onSearch={onAutoSearch}
       onAdd={productUIProps.onAddButtonClick}
     />
   );

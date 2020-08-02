@@ -29,22 +29,22 @@ export const productSlice = createSlice({
     productUpdateStart: state => {
       state.error = null;
     },
-    productListFetchedSuccess: (state, action) => {
+    productListSuccess: (state, action) => {
       state.error = null;
       state.productList = action.payload;
     },
-    productFetchedSuccess: (state, action) => {
+    productDetailSuccess: (state, action) => {
       state.productDetail = action.payload;
       state.error = null;
     },
-    productCreatedSuccess: state => {
+    productCreateSuccess: state => {
       state.error = null;
       state.productDetail = initialProductState.productDetail;
     },
-    productUpdatedSuccess: state => {
+    productUpdateSuccess: state => {
       state.error = null;
     },
-    productDeletedSuccess: state => {
+    productDeleteSuccess: state => {
       state.error = null;
     },
     resetState: state => {

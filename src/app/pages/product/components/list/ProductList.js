@@ -13,7 +13,7 @@ import UpdatedUserView from '_core/components/UpdatedUserView';
 
 import getSortParams from '_core/utils/getSortPrams';
 
-function ProductList({ hideActionCol }) {
+function ProductList() {
   const productUIContext = useProductUIContext();
 
   const productUIProps = useMemo(
@@ -68,15 +68,11 @@ function ProductList({ hideActionCol }) {
       render: createdBy => <UpdatedUserView {...createdBy} />,
       sorter: true,
     },
-  ];
-
-  if (!hideActionCol) {
-    columns.push({
+    {
       title: 'Actions',
       dataIndex: 'operation',
       key: 'operation',
       width: '100px',
-      // eslint-disable-next-line react/display-name
       render: (_, rowData) => (
         <SimpleTableAction
           isShow
@@ -84,8 +80,8 @@ function ProductList({ hideActionCol }) {
           onEdit={() => productUIProps.onEdit(rowData.id)}
         />
       ),
-    });
-  }
+    },
+  ];
 
   const productState = useSelector(makeSelectProductList());
   const { count: totalCount, rows: productRows } = productState;
@@ -93,7 +89,7 @@ function ProductList({ hideActionCol }) {
   useEffect(() => {
     dispatch(actions.productListStart(productUIProps.queryParams));
     return () => dispatch(actions.resetState());
-  }, [productUIProps.queryParams]);
+  }, [productUIProps.queryParams, dispatch]);
 
   const pagination = {
     page: productUIProps.queryParams.page || 1,

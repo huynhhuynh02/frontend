@@ -9,10 +9,10 @@ import { useInjectSaga } from '_core/utils/injectSaga';
 import { CrownOutlined } from '@ant-design/icons';
 import messages from './messages';
 
-export const PRODUCT_ROOT_PATH = '/product';
+export const PRODUCT_ROOT_PATH = '/products';
 
 export const PRODUCT_MENU = {
-  path: `${PRODUCT_ROOT_PATH}/list`,
+  path: `${PRODUCT_ROOT_PATH}`,
   name: <FormattedMessage {...messages.menuTitle} />,
   icon: <CrownOutlined />,
 };
