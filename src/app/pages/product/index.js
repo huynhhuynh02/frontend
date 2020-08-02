@@ -22,6 +22,7 @@ const ProductPageLazy = loadable(() => import('app/pages/product/ProductPage'));
 function ProductPage(props) {
   useInjectReducer({ key: MODULE_STATE_NAME, reducer });
   useInjectSaga({ key: MODULE_STATE_NAME, saga });
+
   return <ProductPageLazy {...props} />;
 }
 

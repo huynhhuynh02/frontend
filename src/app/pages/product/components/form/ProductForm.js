@@ -6,8 +6,10 @@ import Col from 'antd/es/col';
 import Card from 'antd/es/card';
 import { Formik } from 'formik';
 import { Form, FormItem, Input, InputNumber } from 'formik-antd';
+
 import UnitsField from 'app/pages/product/components/form/UnitsField';
 import UploadImageField from 'app/pages/product/components/form/UploadImagesField';
+
 import CancelButton from '_core/components/CancelButton';
 import SubmitButton from '_core/components/SubmitButton';
 

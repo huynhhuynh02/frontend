@@ -8,7 +8,7 @@ import { ProductUIProvider } from 'app/pages/product/ProductUIContext';
 import { PERMISSION } from 'app/constants';
 import PrivateRoute from 'app/containers/PrivateRoute';
 
-function ProductsPage({ history }) {
+function ProductListPage({ history }) {
   const uiEvents = {
     onNew: () => {
       history.push(`${PRODUCT_ROOT_PATH}/new`);
@@ -46,7 +46,7 @@ function ProductsPage({ history }) {
   );
 }
 
-ProductsPage.propTypes = {};
-ProductsPage.defaultProps = {};
+ProductListPage.propTypes = {};
+ProductListPage.defaultProps = {};
 
-export default ProductsPage;
+export default ProductListPage;
