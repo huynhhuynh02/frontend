@@ -22,7 +22,7 @@ if (isDev) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:3001',
+      target: 'http://206.189.33.31:3001/',
       changeOrigin: true,
     }),
   );

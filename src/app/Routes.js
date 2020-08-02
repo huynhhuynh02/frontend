@@ -2,8 +2,9 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Login } from 'app/modules/auth/pages';
-import Layout from '_core/components/layout/Layout';
+import Layout from '_core/components/Layout/Layout';
 import ErrorsPage from 'app/pages/error/ErrorsPage';
+import AccessDeniedPage from 'app/pages/error/AccessDeniedPage';
 import BasePage from './BasePage';
 import { selectIsAuthorize } from './modules/auth/pages/selectors';
 import SplashScreen from './pages/splashscreen/SplashScreen';
@@ -45,6 +46,7 @@ export function Routes() {
     <Switch>
       <Route path="/auth/login" component={Login} />
       <Route path="/error" component={ErrorsPage} />
+      <Route path="/access-deny" component={AccessDeniedPage} />
       {screen}
     </Switch>
   );
