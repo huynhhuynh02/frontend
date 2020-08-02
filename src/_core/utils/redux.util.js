@@ -86,10 +86,11 @@ export const createCRUDReducer = (module, { search, form }) => {
           draft.item = action.payload;
           break;
         case TYPES.SEARCH.START:
-          draft.search = action.payload;
+          draft.search = { ...state.search, ...action.payload };
           break;
         case TYPES.SEARCH.SUCCESS:
-          draft.rows = action.payload;
+          draft.rows = action.payload.rows;
+          draft.count = action.payload.count;
           break;
         case TYPES.CREATE.SUCCESS:
         case TYPES.DELETE.SUCCESS:

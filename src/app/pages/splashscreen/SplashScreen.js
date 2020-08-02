@@ -20,7 +20,7 @@ const SplashScreen = () => {
     try {
       if (token) {
         const user = await authService.getInfo(token);
-        dispatch(login(token, user));
+        dispatch(login(token, user, window.location.href));
       }
     } catch (e) {
       console.error(e);
@@ -39,22 +39,28 @@ const SplashScreen = () => {
       "<span class='letter'>$&</span>",
     );
 
+    const letterEls = textWrapper.querySelectorAll('.letter');
+
     anime
       .timeline({ loop: true })
       .add({
-        targets: '.ml3 .letter',
+        targets: letterEls,
         opacity: [0, 1],
         easing: 'easeInOutQuad',
         duration: 2250,
         delay: (el, i) => 150 * (i + 1),
       })
       .add({
-        targets: '.ml3',
+        targets: textWrapper,
         opacity: 0,
         duration: 1000,
         easing: 'easeOutExpo',
         delay: 500,
       });
+    return () => {
+      anime.remove(letterEls);
+      anime.remove(textWrapper);
+    };
   });
 
   return (

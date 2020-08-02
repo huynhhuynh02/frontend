@@ -7,6 +7,7 @@ import {
   remove,
   save,
 } from '../../../../_core/utils/localStorage';
+
 export const MODULE_STATE_NAME = 'AUTH';
 
 const AUTH_ACTION_TYPE = {
@@ -18,6 +19,7 @@ export const authInitial = {
   isAuthenticated: false,
   token: '',
   user: null,
+  redirectURL: '/dashboard',
 };
 
 export const reducer = (state = authInitial, action) =>
@@ -27,8 +29,8 @@ export const reducer = (state = authInitial, action) =>
         draft.token = action.payload.token;
         draft.user = action.payload.user;
         draft.isAuthenticated = true;
+        draft.redirectURL = action.payload.redirectURL;
         save(LOCAL_STORAGE.TOKEN, action.payload.token);
-
         break;
       case AUTH_ACTION_TYPE.LOGOUT:
         draft.token = authInitial.token;
@@ -41,12 +43,13 @@ export const reducer = (state = authInitial, action) =>
     }
   });
 
-export function login(token, user) {
+export function login(token, user, redirectURL) {
   return {
     type: AUTH_ACTION_TYPE.LOGIN,
     payload: {
       token,
       user,
+      redirectURL,
     },
   };
 }
@@ -59,10 +62,7 @@ export function logout() {
 }
 
 export function* saga() {
-  yield takeLatest(AUTH_ACTION_TYPE.LOGIN, function* redirectToDashboard() {
-    yield put(push('/dashboard'));
-  });
-  yield takeLatest(AUTH_ACTION_TYPE.LOGOUT, function* redirectToDashboard() {
+  yield takeLatest(AUTH_ACTION_TYPE.LOGOUT, function* redirectIndex() {
     yield put(push('/'));
   });
 }
